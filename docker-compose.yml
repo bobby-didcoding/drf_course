@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: docker/docker_files/Dockerfile
+    restart: unless-stopped
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/code
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+
+  app:
+    build:
+      context: .
+      dockerfile: backend/docker/docker_files/Dockerfile_app
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+
