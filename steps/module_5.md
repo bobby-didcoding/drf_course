@@ -125,6 +125,7 @@ from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
+router.register(r'contact', core_views.ContactViewSet, basename='contact')
 
 urlpatterns = router.urls
 
@@ -168,7 +169,7 @@ class EcommerceConfig(AppConfig):
 ```
 
 
-5) Create a user - Go ahead and create a new superuser. This will server 2 purposes. We we gain access to the built in Django admin page and we will also create a new token. Open a new terminal and use the follwing code.
+5) Create a user - Go ahead and create a new superuser. This will server 2 purposes. We we gain access to the built in Django admin page and we will also create a new token. Open a new terminal and use the following code.
 ```
 python manage.py createsuperuser
 ```
@@ -178,22 +179,24 @@ Add a username, email and password.
 
 The following commands will call the API end point:
 
+>Note: change 'localhost' to 'api' if you make the calls via Docker Decktop.
+
 
 ```
-curl -XPOST -F 'username=bobby@didcoding.com' -F 'password=fredfred1' http://localhost:8000/api-token-auth/
+curl -XPOST -F 'username=**your_username**' -F 'password=**your_password**' http://localhost:8000/api-token-auth/
 ```
 
 ```
-http post http://localhost:8000/api-token-auth/ username=bobby@didcoding.com password=fredfred1
+http post http://localhost:8000/api-token-auth/ username=**your_username** password=**your_password**
 ```
 
 These can both be used in the Docker CLI
 ```
-curl -XPOST -F 'username=bobby@didcoding.com' -F 'password=fredfred1' http://api:8000/api-token-auth/
+curl -XPOST -F 'username=**your_username**' -F 'password=**your_password**' http://api:8000/api-token-auth/
 ```
 
 ```
-http post http://api:8000/api-token-auth/ username=bobby@didcoding.com password=fredfred1
+http post http://api:8000/api-token-auth/ username=**your_username** password=**your_password**
 ```
 With any luck, you should see something that looks like the following:
 
