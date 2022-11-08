@@ -194,7 +194,7 @@ urlpatterns += [
 ]
 ```
 
-6) Register - Go ahead and open /core/admin.py and paste in the follwing code to register the new models to the built in admin page. 
+6) Register - Go ahead and open /core/admin.py and paste in the following code to register the new models to the built in admin page. 
 
 ```
 from django.contrib import admin
@@ -213,8 +213,43 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-You will now be able to see the fruits of your labour at [http://localhost:8000](http://localhost:8000).
->Note: We will fully test the endpoint in the next video
+8) Call our endpoints - Here are the requests we can make to our new endpoint.
+
+>Note: change 'localhost' to 'api' if you make the calls via Docker Decktop.
+
+> This will create a contact request
+
+curl -X POST -H "Content-type: application/json" -d '{"name": "Bobby Stearman", "message": "test", "email":"bobby@didcoding.com"}' 'http://localhost:8000/contact/'
+
+http http://api:8000/contact/ name="Bobby Stearman" message="test" email="bobby@didcoding.com"
+
+if it went well, you should see something like the following in your terminal.
+
+```
+HTTP/1.1 200 OK
+Allow: POST, OPTIONS
+Content-Length: 157
+Content-Type: application/vnd.api+json
+Cross-Origin-Opener-Policy: same-origin
+Date: Tue, 08 Nov 2022 13:22:57 GMT
+Referrer-Policy: same-origin
+Server: WSGIServer/0.2 CPython/3.10.8
+Vary: Accept
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{
+    "data": {
+        "attributes": {
+            "email": "bobby@didcoding.com",
+            "message": "test",
+            "name": "Bobby Stearman"
+        },
+        "id": "b37b5fa7-7cdd-4594-961b-8489ad66fd83",
+        "type": "Contact"
+    }
+}
+```
 
 
 ***
