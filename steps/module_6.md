@@ -171,7 +171,6 @@ class Order(
 
 from collections import OrderedDict
 from .models import Item , Order
-from .exceptions import NotEnoughStockException
 from rest_framework_json_api import serializers
 from rest_framework import status
 from rest_framework.exceptions import APIException
@@ -187,7 +186,7 @@ class NotEnoughStockException(APIException):
 
 
 
-class ItemSerializer(serializers.HyperlinkedModelSerializer):
+class ItemSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Item
@@ -200,7 +199,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-class OrderSerializer(serializers.HyperlinkedModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
 
     item = serializers.PrimaryKeyRelatedField(queryset = Item.objects.all(), many=False)
     
