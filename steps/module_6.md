@@ -40,10 +40,10 @@ drf_course\  <--This is the root directory
             >signals.py
             >tests.py
             >views.py
-        static\
         utils\
             >__init__.py
             >model_abstracts.py 
+        >db.sqlite3
         >manage.py
         >requirements.txt
     steps\
@@ -72,9 +72,9 @@ git pull origin module_6
 
 Lets expand on what we have already learned and create a new app and few new endpoints. This time we will use enforce token authentication. This means only authenticated users can make calls to the endpoints.
 
-We will build an e-commerce app with an item and order endpoint. Users will be able to retreive items in the database, place and order and retreive order information.
+We will build an e-commerce app with an item and order endpoint. Users will be able to retrieve items in the database, place and order and retrieve order information.
 
-We need models, routers, serializers and viewsets! Lets not waist any time...
+We need models, routers, serializers and view-sets/api-view! Let's not waist any time...
 
 1) Model - Go ahead and open /ecommerce/models.py and paste in the following code.
 ```
@@ -282,10 +282,10 @@ drf_course\  <--This is the root directory
             >signals.py
             >tests.py
             >views.py
-        static\
         utils\
             >__init__.py
             >model_abstracts.py 
+        >db.sqlite3
         >manage.py
         >requirements.txt
     steps\
