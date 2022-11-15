@@ -29,10 +29,10 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         utils\
             >__init__.py
             >model_abstracts.py 
+        >db.sqlite3
         >manage.py
         >requirements.txt
     steps\
@@ -125,12 +125,12 @@ from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
-router.register(r'contact', core_views.ContactViewSet, basename='contact')
 
 urlpatterns = router.urls
 
 urlpatterns += [
     path('admin/', admin.site.urls),
+    path('contact/', core_views.ContactAPIView.as_view()),
     path('api-token-auth/', obtain_auth_token), #gives us access to token auth
 ]
 ```
@@ -179,18 +179,6 @@ Add a username, email and password.
 
 The following commands will call the API end point:
 
->Note: change 'localhost' to 'api' if you make the calls via Docker Decktop.
-
-
-```
-curl -XPOST -F 'username=**your_username**' -F 'password=**your_password**' http://localhost:8000/api-token-auth/
-```
-
-```
-http post http://localhost:8000/api-token-auth/ username=**your_username** password=**your_password**
-```
-
-These can both be used in the Docker CLI
 ```
 curl -XPOST -F 'username=**your_username**' -F 'password=**your_password**' http://api:8000/api-token-auth/
 ```
@@ -198,6 +186,7 @@ curl -XPOST -F 'username=**your_username**' -F 'password=**your_password**' http
 ```
 http post http://api:8000/api-token-auth/ username=**your_username** password=**your_password**
 ```
+
 With any luck, you should see something that looks like the following:
 
 ```
@@ -255,10 +244,10 @@ drf_course\  <--This is the root directory
             >signals.py <--New file
             >tests.py
             >views.py
-        static\
         utils\
             >__init__.py
-            >model_abstracts.py 
+            >model_abstracts.py
+        >db.sqlite3
         >manage.py
         >requirements.txt
     steps\
