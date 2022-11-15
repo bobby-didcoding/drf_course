@@ -7,7 +7,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 
 router = routers.DefaultRouter()
-router.register(r'contact', core_views.ContactViewSet, basename='contact')
 router.register(r'item', ecommerce_views.ItemViewSet, basename='item')
 router.register(r'order', ecommerce_views.OrderViewSet, basename='order')
 
@@ -15,5 +14,6 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path('admin/', admin.site.urls),
+    path('contact/', core_views.ContactAPIView.as_view()),
     path('api-token-auth/', obtain_auth_token),
 ]
