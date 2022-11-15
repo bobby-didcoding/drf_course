@@ -12,7 +12,6 @@ drf_course\  <--This is the root directory
     backend\
         docker\
             ...
-        static\
         >requirements.txt
     steps\
         ...
@@ -104,7 +103,6 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         >manage.py
         >requirements.txt
     steps\
