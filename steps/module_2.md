@@ -18,7 +18,6 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         >manage.py
         >requirements.txt
     steps\
@@ -75,7 +74,7 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 ```
 
-installed apps: Django will only know to include our new apps in the project when we register them. Open drf_course/settings.py and register the new application in INSTALLED_APPS. Replace the current settings with the following snippet.
+installed apps: Django will only know to include our new app in the project when we register it. Open drf_course/settings.py and register the new application in INSTALLED_APPS. Replace the current settings with the following snippet.
 ```
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -216,7 +215,6 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         >manage.py
         >requirements.txt
     steps\
