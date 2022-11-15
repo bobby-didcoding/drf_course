@@ -215,6 +215,7 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
+        >db.sqlite3 <--New file
         >manage.py
         >requirements.txt
     steps\
