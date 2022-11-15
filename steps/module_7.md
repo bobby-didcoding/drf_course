@@ -41,10 +41,10 @@ drf_course\  <--This is the root directory
             >signals.py
             >tests.py
             >views.py
-        static\
         utils\
             >__init__.py
             >model_abstracts.py 
+        >db.sqlite3
         >manage.py
         >requirements.txt
     steps\
@@ -151,7 +151,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 
 router = routers.DefaultRouter()
-router.register(r'contact', core_views.ContactViewSet, basename='contact')
 router.register(r'item', ecommerce_views.ItemViewSet, basename='item')
 router.register(r'order', ecommerce_views.OrderViewSet, basename='order')
 
@@ -159,6 +158,7 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path('admin/', admin.site.urls),
+    path('contact/', core_views.ContactAPIView.as_view()),
     path('api-token-auth/', obtain_auth_token),
 ]
 ```
@@ -202,10 +202,10 @@ drf_course\  <--This is the root directory
             >signals.py
             >tests.py
             >views.py
-        static\
         utils\
             >__init__.py
             >model_abstracts.py 
+        >db.sqlite3
         >manage.py
         >requirements.txt
     steps\
