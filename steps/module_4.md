@@ -29,7 +29,6 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         utils\
             >__init__.py
             >model_abstracts.py 
@@ -57,10 +56,8 @@ git pull origin module_4
 ## Steps/Commands
 >Note: Please 'cd' into the root directory and fire up your virtual environment!
 
-In the last module, we built a '/contact/' end point for uses to get in touch with us. It seems to work okay but let's double down on testing.
+In the last module, we built a '/contact/' end point for users to get in touch with us. It seems to work okay but let's double down on testing.
 In this module, we will write some unit tests to test our new endpoint.
-
-DRF comes with a built in APIClient to 
 
 1) Unit tests - Copy the following code into /core/tests.py
 ```
@@ -167,19 +164,12 @@ python manage.py test
 
 3) Call API - We're ready to call the 'contact' endpoint. I like to user (Curl)[https://curl.se/] or (Httpie)[https://httpie.io/].
 
-You'll need to fire up Docker if you've decdied to go down the docker route. If this is the case, use the following command.
 ```
-docker-compose up -d --build
-```
-Now open a cli in the 'drf_course_api' container...You're now ready to us the following commands.
-
->Note: Change 'localhost' to 'api' if you are using docker
-```
-curl -XPOST -H "Content-type: application/json" -d '{"name": "Bobby Stearman", "message": "test", "email":"bobby@didcoding.com"}' 'http://localhost:8000/contact/'
+curl -XPOST -H "Content-type: application/json" -d '{"name": "Bobby Stearman", "message": "test", "email":"bobby@didcoding.com"}' 'http://api:8000/contact/'
 ```
 
 ```
-http post http://localhost:8000/contact/ name='Bobby Stearman' message='This is a test' email=bobby@didcoding.com
+http post http://api:8000/contact/ name='Bobby Stearman' message='This is a test' email=bobby@didcoding.com
 ```
 
 
@@ -190,7 +180,7 @@ python manage.py shell
 Now use the following command and check the database for our new entry
 ```
 from core.models import Contact
-c = Contact.objects.latest(created)
+c = Contact.objects.last()
 c.title
 ```
 
@@ -222,7 +212,6 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         utils\
             >__init__.py
             >model_abstracts.py 
