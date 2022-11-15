@@ -28,7 +28,6 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         >manage.py
         >requirements.txt
     steps\
@@ -137,7 +136,7 @@ class ContactSerializer(serializers.ModelSerializer):
 ```
 
 
-4) ViewSets - A ViewSet class is simply a type of class-based View, that does not provide any method handlers such as .get() or .post(), and instead provides actions such as .list() and .create().
+4) APIView - Using the APIView class is pretty much the same as using a regular View class, as usual, the incoming request is dispatched to an appropriate handler method such as .get() or .post(). Additionally, a number of attributes may be set on the class that control various aspects of the API policy.
 
 Go ahead and paste the following code into /backend/core/views.py
 
@@ -146,18 +145,29 @@ from json import JSONDecodeError
 from django.http import JsonResponse
 from .serializers import ContactSerializer
 from rest_framework.parsers import JSONParser
-from rest_framework import viewsets, status
+from rest_framework import views, status
 from rest_framework.response import Response
 
 
 
-class ContactViewSet(viewsets.GenericViewSet):
+class ContactAPIView(views.APIView):
     """
-    A simple ViewSet for creating contact entires.
+    A simple APIView for creating contact entires.
     """
     serializer_class = ContactSerializer
 
-    def create(self, request):
+    def get_serializer_context(self):
+        return {
+            'request': self.request,
+            'format': self.format_kwarg,
+            'view': self
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)
+
+    def post(self, request):
         try:
             data = JSONParser().parse(request)
             serializer = ContactSerializer(data=data)
@@ -185,12 +195,12 @@ from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register(r'contact', core_views.ContactViewSet, basename='contact') #new endpoint for '/contact/'
 
 urlpatterns = router.urls
 
 urlpatterns += [
     path('admin/', admin.site.urls),
+    path('contact/', core_views.ContactAPIView.as_view()),
 ]
 ```
 
@@ -219,7 +229,7 @@ python manage.py migrate
 
 > This will create a contact request
 
-curl -X POST -H "Content-type: application/json" -d '{"name": "Bobby Stearman", "message": "test", "email":"bobby@didcoding.com"}' 'http://localhost:8000/contact/'
+curl -X POST -H "Content-type: application/json" -d '{"name": "Bobby Stearman", "message": "test", "email":"bobby@didcoding.com"}' 'http://api:8000/contact/'
 
 http http://api:8000/contact/ name="Bobby Stearman" message="test" email="bobby@didcoding.com"
 
@@ -279,7 +289,6 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
-        static\
         utils\ <--New directory
             >__init__.py
             >model_abstracts.py 
