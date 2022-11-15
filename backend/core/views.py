@@ -2,18 +2,29 @@ from json import JSONDecodeError
 from django.http import JsonResponse
 from .serializers import ContactSerializer
 from rest_framework.parsers import JSONParser
-from rest_framework import viewsets, status
+from rest_framework import views, status
 from rest_framework.response import Response
 
 
 
-class ContactViewSet(viewsets.GenericViewSet):
+class ContactAPIView(views.APIView):
     """
-    A simple ViewSet for creating contact entires.
+    A simple APIView for creating contact entires.
     """
     serializer_class = ContactSerializer
 
-    def create(self, request):
+    def get_serializer_context(self):
+        return {
+            'request': self.request,
+            'format': self.format_kwarg,
+            'view': self
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)
+
+    def post(self, request):
         try:
             data = JSONParser().parse(request)
             serializer = ContactSerializer(data=data)
