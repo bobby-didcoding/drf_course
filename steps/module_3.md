@@ -28,6 +28,7 @@ drf_course\  <--This is the root directory
             >settings.py
             >urls.py
             >wsgi.py
+	>db.sqlite3
         >manage.py
         >requirements.txt
     steps\
@@ -292,6 +293,7 @@ drf_course\  <--This is the root directory
         utils\ <--New directory
             >__init__.py
             >model_abstracts.py 
+	>db.sqlite3
         >manage.py
         >requirements.txt
     steps\
