@@ -76,7 +76,7 @@ In this module, we will write some unit tests to test our new endpoints.
 
 DRF comes with a built in APIClient.
 
-1) Unit tests - Copy the following code into /core/tests.py
+1) Unit tests - Copy the following code into /ecommerce/tests.py
 
 ```
 from django.contrib.auth.models import User
