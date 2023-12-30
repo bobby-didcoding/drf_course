@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 RUN set -e; \
     apt-get update ;\
-    apt-get -y install netcat ;\
+    apt-get -y install netcat-traditional ;\
     apt-get -y install gettext ;\
     apt-get -y  install httpie; \
     pip install --upgrade pip \
